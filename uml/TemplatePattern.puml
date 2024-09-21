@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+abstract class Game{
+    - DIFFICULTY_MODE:int
+    - enemyBullets:List<BaseBullet>
+    - enemyAircrafts:List<AbstractAircraft>
+    - score:int
+    + {abstract}enemyProduce(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+}
+
+class EasyGame{
+    - enemyMaxNumber:int
+    - enemyFactory:EnemyFactory
+    + enemyProduce(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+}
+class NormalGame{
+    - bossEnemy:AbstractAircraft
+    - eliteProbability:double
+    -  multiplier:double
+    - enemyMaxNumber:int
+    - enemyFactory:EnemyFactory
+    + enemyProduce(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    }
+class HardGame{
+    - bossEnemy:AbstractAircraft
+    - eliteProbability:double
+    -  multiplier:double
+    - enemyMaxNumber:int
+    - enemyFactory:EnemyFactory
+    + enemyProduce(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+}
+class Main{
+    + startGame():void
+}
+
+Game <|-- EasyGame
+Game <|-- NormalGame
+Game <|-- HardGame
+Game <.. Main
+@enduml

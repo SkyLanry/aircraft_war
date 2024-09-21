@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+interface PlayerScoreDao{
+    + {abstract}getAllScores():List<PlayerScore>
+    + {abstract}addScore(PlayerScore playerScore):void
+    + {abstract}deleteScore(List<PlayerScore> playerScores, String playername):void
+    + {abstract}outputAllScores():void
+    + {abstract}findScoreByName():void
+}
+
+class ScoreDaoImpl{
+    - playerScores:List<PlayerScore>
+    - file:File
+    + getAllScores():List<PlayerScore>
+    + addScore(PlayerScore playerScore):void
+    + deleteScore(List<PlayerScore> playerScores, String playername):void
+    + outputAllScores():void
+    + findScoreByName():void
+    + readFile():void
+    + clearFile():void
+    + writeFile(List<PlayerScore> playerScores):void
+    + getSize():int
+}
+
+class PlayerScore{
+    - playername:String
+    - score:int
+    - time:int
+    + PlayerScore(String playername, int score, int time)
+    + getPlayername():String
+    + getScore():int
+    + getTime():int
+}
+
+class Game{}
+
+PlayerScoreDao <|.. ScoreDaoImpl
+ScoreDaoImpl --> PlayerScore
+PlayerScoreDao <.. Game
+@enduml

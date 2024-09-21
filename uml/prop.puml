@@ -1,0 +1,80 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+abstract class AbstractFlyingObject
+{
+    # locationX:int
+    # locationY:int
+    # speedX:int
+    # speedY:int
+    # image:BufferedImage
+    # width:int
+    # height:int
+    # isValid:boolean
+
+    + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
+    + forward():void
+    + crash(AbstractFlyingObject flyingObject):boolean
+    + setLocation(double locationX, double locationY):void
+    + getLocationX():int
+    + getLocationY():int
+    + getSpeedY():int
+    + getImage():BufferedImage
+    + getWidth():int
+    + getHeight():int
+    + notValid():boolean
+    + vanish():void
+}
+abstract class AbstractProp
+{
+    + AbstractProp(int locationX, int locationY, int speedX, int speedY)
+    + {abstract} function():HeroAircraft
+}
+
+class BloodProp {
+    - hpRaise:int
+    + BloodProp(int locationX, int locationY, int speedX, int speedY)
+    + forward():void
+    + function():HeroAircraft
+}
+
+class FireProp{
+    + FireProp(int locationX, int locationY, int speedX, int speedY)
+    + function():HeroAircraft
+    + forward():void
+}
+
+class BombProp{
+    + BombProp(int locationX, int locationY, int speedX, int speedY)
+    + function():HeroAircraft
+    + forward():void
+}
+
+AbstractProp <|-- BloodProp
+AbstractProp <|-- FireProp
+AbstractProp <|-- BombProp
+
+interface PropFactory {
+    + {abstract} createProp(int locationX, int locationY):AbstractProp
+}
+
+class BloodFactory {
+    + createProp(int locationX, int locationY):AbstractProp
+}
+
+class FireFactory {
+    + createProp(int locationX, int locationY):AbstractProp
+}
+
+class BombFactory {
+    + createProp(int locationX, int locationY):AbstractProp
+}
+
+PropFactory <|.. BloodFactory
+PropFactory <|.. FireFactory
+PropFactory <|.. BombFactory
+BloodFactory ..> BloodProp
+FireFactory ..> FireProp
+BombFactory ..> BombProp
+
+AbstractFlyingObject <|-- AbstractProp
+@enduml

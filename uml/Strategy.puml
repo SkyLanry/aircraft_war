@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+interface ShootStrategy
+{
+    + {abstract} doOperation(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+class OperationScattering{
+    + doOperation(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+class OperationDirectShooting{
+    + doOperation(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+ShootStrategy <|-- OperationScattering
+ShootStrategy <|-- OperationDirectShooting
+
+class AbstractAircraft{
+    - class Context
+    - strategy:ShootStrategy
+    + setShootStrategy(strategy)
+    + {abstract} shoot():List<BaseBullet>
+}
+
+class HeroAircraft{
+    + shoot:List<BaseBullet>
+}
+class EliteEnemy{
+    + shoot:List<BaseBullet>
+}
+class BossEnemy{
+    + shoot:List<BaseBullet>
+}
+AbstractAircraft o-> ShootStrategy
+HeroAircraft ..> AbstractAircraft
+EliteEnemy ..> AbstractAircraft
+BossEnemy ..> AbstractAircraft
+@enduml

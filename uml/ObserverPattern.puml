@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+Interface Observer{
+    + {abstract} respond():void
+}
+abstract class AbstractAim{
+    - observers:ArrayList
+    + attach(Observer observer):void
+    + unbind(Observer observer):void
+    + {abstract}notice():void
+}
+class EnemyObserver{
+    - enemies:List<AbstractEnemy>
+    + EnemyObserver(List<AbstractEnemy> enemies)
+    + respond():void
+}
+class EnemyBulletObserver{
+    - enemyBullets:List<BaseBullet>
+    + EnemyBulletObserver(List<BaseBullet> enemyBullets)
+    + respond():void
+}
+class AimBomb{
+    + notice():void
+}
+class BombProp{
+    + BombProp(int locationX, int locationY, int speedX, int speedY)
+    + function(HeroAircraft,List<AbstractEnemy> enemies,List<BaseBullet> enemyBullets):void
+    + forward():void
+}
+
+Observer <|.. EnemyObserver
+Observer <|.. EnemyBulletObserver
+AbstractAim o--> Observer
+AbstractAim <|-- AimBomb
+AbstractAim <.. BombProp
+@enduml
